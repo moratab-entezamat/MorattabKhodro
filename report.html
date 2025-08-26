@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>گزارش - مرتب خودرو</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      border: 1px solid #007ea7;
+      padding: 0.6rem;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    thead {
+      background-color: #003566;
+      color: #90e0ef;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-start;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: nowrap;
+    }
+
+    .actions button {
+      padding: 0.6rem 1.2rem;
+      background-color: #00b4d8;
+      color: #001f54;
+      font-weight: bold;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      flex: 1 1 auto;
+      max-width: 150px;
+    }
+
+    .actions button:hover {
+      background-color: #007ea7;
+    }
+
+    main {
+      width: 95vw;
+      max-width: 1200px;
+      margin: 2rem auto;
+      overflow-x: auto;
+    }
+
+    #searchInput {
+      width: 100%;
+      max-width: 300px;
+      padding: 0.5rem 0.8rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #007ea7;
+      background-color: #0a3d62;
+      color: #e0e0e0;
+      box-shadow: inset 1px 1px 5px #071f3f;
+      margin-bottom: 0.8rem;
+      transition: box-shadow 0.3s ease, background-color 0.3s ease;
+    }
+
+    #searchInput:focus {
+      outline: none;
+      box-shadow: 0 0 8px #00b4d8;
+      background-color: #0e4f8b;
+    }
+
+    /* دکمه‌های ویرایش و حذف کوچک و رنگ پس زمینه مطابق تم */
+
+    td button.edit-btn,
+    td button.delete-btn {
+      background-color: #0a3d62;
+      border: none;
+      color: #90e0ef;
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      margin-left: 4px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    td button.edit-btn:hover,
+    td button.delete-btn:hover {
+      background-color: #007ea7;
+    }
+
+    @media print {
+      .actions, #searchInput {
+        display: none;
+      }
+      td button.edit-btn, td button.delete-btn {
+        display: none;
+      }
+    }
+  </style>
+  <!-- افزودن jsPDF و html2canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+<header>
+  <h1>مرتب خودرو</h1>
+  <div class="menu-toggle" id="menuToggle" aria-label="باز کردن منو" role="button" tabindex="0">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
+
+<nav id="sideMenu" aria-hidden="true">
+  <a href="index.html">ورود خودرو</a>
+  <a href="exit.html">خروج خودرو</a>
+  <a href="test_entry.html">تست خودرو ورود</a>
+  <a href="test_exit.html">تست خودرو خروج</a>
+  <a href="report.html">گزارش</a>
+</nav>
+
+<main>
+  <h2>گزارش عملیات ثبت شده</h2>
+
+  <input type="text" id="searchInput" placeholder="جستجو در گزارش‌ها..." aria-label="جستجو در گزارش‌ها" />
+
+  <div class="actions">
+    <button onclick="window.print()">چاپ گزارش</button>
+    <button id="clearAllBtn">حذف تمام گزارش‌ها</button>
+    <button id="downloadPdfBtn">دانلود PDF</button>
+  </div>
+
+  <table id="reportTable" aria-describedby="tableDescription">
+    <caption id="tableDescription">مرتب خودرو</caption>
+    <thead>
+      <tr>
+        <th>نوع</th>
+        <th>نام مشتری</th>
+        <th>پلاک</th>
+        <th>کارشناس</th>
+        <th>همراه</th>
+        <th>کیلومتر</th>
+        <th>تاریخ</th>
+        <th>ساعت</th>
+        <th>عملیات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- داده‌ها با جاوااسکریپت اضافه می‌شود -->
+    </tbody>
+  </table>
+</main>
+
+<script>
+  // منوی کناری
+  const menuToggle = document.getElementById('menuToggle');
+  const sideMenu = document.getElementById('sideMenu');
+
+  function toggleMenu() {
+    const isOpen = sideMenu.classList.toggle('open');
+    sideMenu.setAttribute('aria-hidden', !isOpen);
+  }
+
+  menuToggle.addEventListener('click', toggleMenu);
+  document.addEventListener('click', e => {
+    if (!sideMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+      sideMenu.classList.remove('open');
+      sideMenu.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  menuToggle.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleMenu();
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const tbody = document.querySelector('#reportTable tbody');
+    let data = JSON.parse(localStorage.getItem('carManagementData')) || [];
+
+    function renderTable(filteredData = data) {
+      tbody.innerHTML = '';
+
+      if (filteredData.length === 0) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td colspan="9">هیچ گزارشی ثبت نشده است.</td>`;
+        tbody.appendChild(tr);
+        return;
+      }
+
+      filteredData.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td contenteditable="false">${item.type || '-'}</td>
+          <td contenteditable="false">${item.name || '-'}</td>
+          <td contenteditable="false">${item.plate || '-'}</td>
+          <td contenteditable="false">${item.driver || '-'}</td>
+          <td contenteditable="false">${item.companion || '-'}</td>
+          <td contenteditable="false">${item.kilometer || item.km || '-'}</td>
+          <td contenteditable="false">${item.date || '-'}</td>
+          <td contenteditable="false">${item.time || '-'}</td>
+          <td>
+            <button class="edit-btn" data-index="${index}">ویرایش</button>
+            <button class="delete-btn" data-index="${index}">حذف</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // افزودن رویدادهای دکمه‌ها
+      tbody.querySelectorAll('button.edit-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const btn = e.target;
+          const idx = btn.getAttribute('data-index');
+          const row = tbody.children[idx];
+          const cells = row.querySelectorAll('td[contenteditable]');
+
+          if (btn.innerText === 'ویرایش') {
+            // فعال کردن حالت ویرایش
+            cells.forEach(cell => cell.contentEditable = "true");
+            cells[0].focus(); // انتخاب اولین سلول برای تایپ
+            btn.innerText = 'ذخیره';
+            btn.style.backgroundColor = '#90be6d'; // رنگ سبز برای ذخیره
+          } else {
+            // ذخیره تغییرات و غیر فعال کردن ویرایش
+            const updatedItem = {
+              type: cells[0].innerText.trim(),
+              name: cells[1].innerText.trim(),
+              plate: cells[2].innerText.trim(),
+              driver: cells[3].innerText.trim(),
+              companion: cells[4].innerText.trim(),
+              kilometer: cells[5].innerText.trim(),
+              date: cells[6].innerText.trim(),
+              time: cells[7].innerText.trim()
+            };
+            data[idx] = updatedItem;
+            localStorage.setItem('carManagementData', JSON.stringify(data));
+            cells.forEach(cell => cell.contentEditable = "false");
+            btn.innerText = 'ویرایش';
+            btn.style.backgroundColor = '#0a3d62';
+            alert('گزارش با موفقیت ویرایش شد.');
+            renderTable();
+          }
+        });
+      });
+
+      tbody.querySelectorAll('button.delete-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = btn.getAttribute('data-index');
+          if (confirm('آیا مطمئن هستید که می‌خواهید این گزارش حذف شود؟')) {
+            data.splice(idx, 1);
+            localStorage.setItem('carManagementData', JSON.stringify(data));
+            renderTable();
+          }
+        });
+      });
+    }
+
+    renderTable();
+
+    const clearBtn = document.getElementById('clearAllBtn');
+    clearBtn.addEventListener('click', () => {
+      if (confirm('آیا مطمئن هستید که می‌خواهید تمام گزارش‌ها حذف شوند؟')) {
+        localStorage.removeItem('carManagementData');
+        data = [];
+        renderTable();
+      }
+    });
+
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', () => {
+      const term = searchInput.value.trim().toLowerCase();
+
+      if (!term) {
+        renderTable();
+        return;
+      }
+
+      const filtered = data.filter(item => {
+        return (
+          (item.type && item.type.toLowerCase().includes(term)) ||
+          (item.name && item.name.toLowerCase().includes(term)) ||
+          (item.plate && item.plate.toLowerCase().includes(term)) ||
+          (item.driver && item.driver.toLowerCase().includes(term)) ||
+          (item.companion && item.companion.toLowerCase().includes(term)) ||
+          (item.kilometer && item.kilometer.toString().toLowerCase().includes(term)) ||
+          (item.km && item.km.toString().toLowerCase().includes(term)) ||
+          (item.date && item.date.toLowerCase().includes(term)) ||
+          (item.time && item.time.toLowerCase().includes(term))
+        );
+      });
+
+      renderTable(filtered);
+    });
+
+    // دانلود PDF با استفاده از html2canvas و jsPDF
+    const downloadBtn = document.getElementById('downloadPdfBtn');
+    downloadBtn.addEventListener('click', async () => {
+      const { jsPDF } = window.jspdf;
+      const table = document.getElementById('reportTable');
+
+      const canvas = await html2canvas(table, {
+        scale: 2,
+        useCORS: true,
+        scrollY: -window.scrollY,
+      });
+
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'pt', 'a4');
+
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+
+      const imgProps = pdf.getImageProperties(imgData);
+      const imgWidth = pdfWidth;
+      const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
+
+      let position = 0;
+
+      if (imgHeight < pdfHeight) {
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      } else {
+        let heightLeft = imgHeight;
+
+        while (heightLeft > 0) {
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pdfHeight;
+          position -= pdfHeight;
+          if (heightLeft > 0) pdf.addPage();
+        }
+      }
+
+      pdf.save('گزارش.pdf');
+    });
+  });
+</script>
+</body>
+</html>

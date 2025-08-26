@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تست خودرو خروج - مرتب خودرو</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <h1>مرتب خودرو</h1>
+  <div class="menu-toggle" id="menuToggle" aria-label="باز کردن منو" role="button" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</header>
+
+<nav id="sideMenu" aria-hidden="true">
+  <a href="index.html">ورود خودرو</a>
+  <a href="exit.html">خروج خودرو</a>
+  <a href="test_exit.html">تست خودرو خروج</a>
+  <a href="test_entry.html">تست خودرو ورود</a>
+  <a href="report.html">گزارش</a>
+</nav>
+
+<main>
+  <h2>خدمات تست خودرو خروج</h2>
+  <form id="testExitForm">
+    <label for="plate">شماره پلاک خودرو</label>
+    <input type="text" id="plate" name="plate" required />
+
+    <label for="driver">کارشناس تست خودرو</label>
+    <select id="driver" name="driver" required>
+      <option value="" disabled selected>انتخاب کنید</option>
+      <option value="محمود بندر">محمود بندر</option>
+      <option value="محسن طوسیانی">محسن طوسیانی</option>
+      <option value="حسین شمس">حسین شمس</option>
+      <option value="حامد قزل">حامد قزل</option>
+      <option value="مجتبی رضایی">مجتبی رضایی</option>
+      <option value="فرشاد مشتعل">فرشاد مشتعل</option>
+    </select>
+
+    <label for="companion">همراه (اختیاری)</label>
+    <select id="companion" name="companion">
+      <option value="" disabled selected>انتخاب کنید</option>
+      <option value="مالک">مالک</option>
+      <option value="محمود بندر">محمود بندر</option>
+      <option value="محسن طوسیانی">محسن طوسیانی</option>
+      <option value="حسین شمس">حسین شمس</option>
+      <option value="حامد قزل">حامد قزل</option>
+      <option value="مجتبی رضایی">مجتبی رضایی</option>
+      <option value="فرشاد مشتعل">فرشاد مشتعل</option>
+    </select>
+
+    <label for="kilometer">کیلومتر خودرو</label>
+    <input type="number" id="kilometer" name="kilometer" required inputmode="numeric" />
+
+    <div class="datetime-row">
+      <div>
+        <label for="date">تاریخ خروج جهت تست</label>
+        <input type="text" id="date" name="date" placeholder="" required />
+      </div>
+      <div>
+        <label for="time">ساعت خروج جهت تست</label>
+        <input type="text" id="time" name="time" placeholder="" required />
+      </div>
+    </div>
+
+    <button type="submit">ثبت اطلاعات</button>
+  </form>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
