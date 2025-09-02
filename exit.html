@@ -17,8 +17,8 @@
 <nav id="sideMenu" aria-hidden="true">
   <a href="index.html">ورود خودرو</a>
   <a href="exit.html">خروج خودرو</a>
-  <a href="test_exit.html">تست خودرو خروج</a>
-  <a href="test_entry.html">تست خودرو ورود</a>
+  <a href="test_exit.html">خروج خودرو جهت آزمون</a>
+  <a href="test_entry.html">ورود خودرو پس از آزمون</a>
   <a href="report.html">گزارش</a>
 </nav>
 
@@ -27,6 +27,11 @@
   <form id="carExitForm">
     <label for="plate">شماره پلاک خودرو</label>
     <input type="text" id="plate" name="plate" required />
+
+    <label for="isCorporate" style="display: inline-flex; align-items: center; margin: -4px 0 15px 0; font-weight: 700; color: #4a58a7; cursor: pointer;">
+      <input type="checkbox" id="isCorporate" name="isCorporate" style="margin-left: 8px; width: 18px; height: 18px; cursor: pointer;" />
+      خودروی سازمانی
+    </label>
 
     <label for="name">نام مشتری</label>
     <input type="text" id="name" name="name" required />
@@ -46,6 +51,64 @@
   </form>
 </main>
 
-<script src="script.js"></script>
+<script>
+  // منوی کناری
+  const menuToggle = document.getElementById('menuToggle');
+  const sideMenu = document.getElementById('sideMenu');
+
+  function toggleMenu() {
+    const isOpen = sideMenu.classList.toggle('open');
+    sideMenu.setAttribute('aria-hidden', !isOpen);
+  }
+
+  menuToggle.addEventListener('click', toggleMenu);
+  document.addEventListener('click', e => {
+    if (!sideMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+      sideMenu.classList.remove('open');
+      sideMenu.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  menuToggle.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleMenu();
+    }
+  });
+
+  // ثبت اطلاعات فرم خروج خودرو
+  const form = document.getElementById('carExitForm');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const plate = form.plate.value.trim();
+    const name = form.name.value.trim();
+    const date = form.date.value.trim();
+    const time = form.time.value.trim();
+    const isCorporate = form.isCorporate.checked;
+
+    const newEntry = {
+      type: isCorporate ? 'خروج خودرو سازمانی' : 'خروج خودرو',
+      plate,
+      name,
+      date,
+      time
+    };
+
+    // ذخیره داده در carExitData (برای اطمینان یا استفاده‌های دیگه)
+    let exitData = JSON.parse(localStorage.getItem('carExitData')) || [];
+    exitData.push(newEntry);
+    localStorage.setItem('carExitData', JSON.stringify(exitData));
+
+    // ذخیره داده در carManagementData (برای صفحه گزارش)
+    let managementData = JSON.parse(localStorage.getItem('carManagementData')) || [];
+    managementData.push(newEntry);
+    localStorage.setItem('carManagementData', JSON.stringify(managementData));
+
+    alert('اطلاعات ثبت شد');
+    form.reset();
+  });
+</script>
 </body>
 </html>
