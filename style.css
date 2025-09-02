@@ -1,12 +1,22 @@
-@import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css');
+@font-face {
+  font-family: "Vazir";
+  src: url(./lib/fonts/fonts/ttf/Vazirmatn-Medium.ttf);
+}
 
-html, body {
-  margin: 0; padding: 0;
+html,
+body {
+  margin: 0;
+  padding: 0;
   height: 100%;
   overflow: hidden;
-  font-family: 'Vazir', sans-serif;
+  font-family: "Vazir", "Times New Roman", sans-serif;
   background: linear-gradient(135deg, #e6ecf7, #d2d9ef, #bfc7e8);
   color: #444a55;
+}
+
+/* اضافه شده: اعمال فونت وزیر به همه عناصر درون body */
+body, body * {
+  font-family: "Vazir", sans-serif;
 }
 
 body {
@@ -22,7 +32,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 4px 12px rgba(90,111,223,0.4);
+  box-shadow: 0 4px 12px rgba(90, 111, 223, 0.4);
   user-select: none;
   flex-shrink: 0;
   z-index: 11000;
@@ -36,7 +46,7 @@ header h1 {
   font-weight: 800;
   color: #e1e6ff;
   letter-spacing: 3px;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 .menu-toggle {
   width: 30px;
@@ -52,7 +62,7 @@ header h1 {
   background: #e1e6ff;
   border-radius: 2px;
   transition: 0.3s;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* منو کناری */
@@ -63,9 +73,9 @@ nav {
   width: 250px;
   height: calc(100vh - 60px);
   background-color: #5a6fdf;
-  box-shadow: -6px 0 18px rgba(90,111,223,0.5);
+  box-shadow: -6px 0 18px rgba(90, 111, 223, 0.5);
   padding: 2rem 1.2rem 1rem 1.2rem;
-  transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+  transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 10001;
   display: flex;
   flex-direction: column;
@@ -83,12 +93,12 @@ nav a {
   border-radius: 8px;
   margin-bottom: 1rem;
   transition: background-color 0.3s ease, color 0.3s ease;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 nav a:hover {
   background-color: #738bec;
   color: #f0f4ff;
-  box-shadow: 0 4px 12px rgba(115,139,236,0.6);
+  box-shadow: 0 4px 12px rgba(115, 139, 236, 0.6);
 }
 
 /* محتوای اصلی */
@@ -100,7 +110,7 @@ main {
   background-color: #e4ebffcc;
   padding: 2rem 2.5rem;
   border-radius: 16px;
-  box-shadow: 0 10px 28px rgba(90,111,223,0.25);
+  box-shadow: 0 10px 28px rgba(90, 111, 223, 0.25);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -108,7 +118,7 @@ main {
   transition: box-shadow 0.3s ease;
 }
 main:hover {
-  box-shadow: 0 12px 40px rgba(90,111,223,0.4);
+  box-shadow: 0 12px 40px rgba(90, 111, 223, 0.4);
 }
 h2 {
   font-size: 1.75rem;
@@ -117,7 +127,7 @@ h2 {
   color: #4a58a7;
   letter-spacing: 1.2px;
   text-align: center;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 form {
   max-width: 380px;
@@ -132,7 +142,7 @@ label {
   font-weight: 700;
   font-size: 1rem;
   color: #4a58a7;
-  text-shadow: 0 0 1px rgba(255,255,255,0.6);
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.6);
 }
 input[type="text"],
 input[type="number"],
@@ -158,8 +168,8 @@ select:focus {
   color: #1f2468;
 }
 /* حذف فلش عدد */
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -186,11 +196,11 @@ button {
   transition: background-color 0.35s ease, box-shadow 0.35s ease;
   width: 100%;
   max-width: 380px;
-  box-shadow: 0 4px 14px rgba(65,88,217,0.6);
+  box-shadow: 0 4px 14px rgba(65, 88, 217, 0.6);
 }
 button:hover {
   background-color: #2e3db4;
-  box-shadow: 0 8px 24px rgba(46,61,180,0.85);
+  box-shadow: 0 8px 24px rgba(46, 61, 180, 0.85);
 }
 
 @media (max-width: 480px) {
@@ -217,7 +227,8 @@ button:hover {
 /* استایل‌های مخصوص چاپ */
 /* =================== */
 @media print {
-  html, body {
+  html,
+  body {
     background: white !important;
     color: black !important;
     overflow: visible !important;
@@ -228,7 +239,10 @@ button:hover {
     height: auto !important;
   }
 
-  header, nav, button, .menu-toggle {
+  header,
+  nav,
+  button,
+  .menu-toggle {
     display: none !important;
   }
 
@@ -237,9 +251,9 @@ button:hover {
     color: black !important;
     box-shadow: none !important;
     max-width: 100% !important;
-    width: 100% !important;  /* عرض کامل */
+    width: 100% !important; /* عرض کامل */
     height: auto !important;
-    margin: 0 !important;  /* حذف margin اضافی */
+    margin: 0 !important; /* حذف margin اضافی */
     padding: 0 !important; /* حذف padding اضافی */
     overflow: visible !important;
     border: none !important; /* حذف خط دور */
@@ -262,7 +276,8 @@ button:hover {
     margin: 0 !important; /* حذف margin */
   }
 
-  th, td {
+  th,
+  td {
     border: 1px solid black !important;
     padding: 0.5rem !important;
     text-align: center !important;
@@ -283,7 +298,9 @@ button:hover {
     page-break-after: auto !important;
   }
 
-  input, select, label {
+  input,
+  select,
+  label {
     color: black !important;
     background: white !important;
     box-shadow: none !important;
@@ -335,9 +352,6 @@ button:hover {
   display: none;
 }
 
-
-
-
 @media print {
   /* سایر استایل‌های چاپ */
 
@@ -346,5 +360,15 @@ button:hover {
   table#reportTable td:nth-child(9) {
     display: none !important;
   }
+  
 }
 
+
+
+@media print {
+  /* جلوگیری از شکست خط در ستون پلاک */
+  table#reportTable td:nth-child(1),
+  table#reportTable th:nth-child(1) {
+    white-space: nowrap !important;
+  }
+}
