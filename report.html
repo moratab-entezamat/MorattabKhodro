@@ -105,6 +105,15 @@
         display: none;
       }
     }
+
+    @media print {
+  /* جلوگیری از شکست خط در ستون پلاک */
+  table#reportTable td:nth-child(3),
+  table#reportTable th:nth-child(3) {
+    white-space: nowrap !important;
+  }
+}
+
   </style>
   <!-- افزودن jsPDF و html2canvas -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
