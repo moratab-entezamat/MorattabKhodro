@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ورود خودرو - مرتب خودرو</title>
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    input::placeholder {
+   color: #dddddd8b; /* خیلی کمرنگ */
+   opacity: 1;
+ }
+ 
+   </style>
+
+
+
 </head>
 <body>
 <header>
@@ -26,7 +37,7 @@
   <h2>خدمات ورود خودرو</h2>
   <form id="carEntryForm">
     <label for="plate">شماره پلاک خودرو</label>
-    <input type="text" id="plate" name="plate" required />
+    <input type="text" id="plate" name="plate" placeholder="مثال : 123الف12" required />
 
     <label for="isCorporate" style="display: inline-flex; align-items: center; margin: -4px 0 15px 0; font-weight: 700; color: #4a58a7; cursor: pointer;">
       <input type="checkbox" id="isCorporate" name="isCorporate" style="margin-left: 8px; width: 18px; height: 18px; cursor: pointer;" />
@@ -36,11 +47,11 @@
     <div class="datetime-row">
       <div>
         <label for="date">تاریخ ورود</label>
-        <input type="text" id="date" name="date" placeholder="" required />
+        <input type="text" id="date" name="date" placeholder="مثال : 1404/01/01" required />
       </div>
       <div>
         <label for="time">ساعت ورود</label>
-        <input type="text" id="time" name="time" placeholder="" required />
+        <input type="text" id="time" name="time" placeholder="مثال : 12:00 " required />
       </div>
     </div>
 
