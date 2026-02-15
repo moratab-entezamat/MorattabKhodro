@@ -1,115 +1,260 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ورود خودرو - مرتب خودرو</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بازی اختصاصی برای زهرا ❤️</title>
 
-  <style>
-    input::placeholder {
-   color: #dddddd8b; /* خیلی کمرنگ */
-   opacity: 1;
- }
- 
-   </style>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
 
+body {
+    font-family: 'Baloo 2', cursive;
+    background: linear-gradient(135deg, #8f00ff, #c471f5, #f64f59);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    overflow: hidden;
+    flex-direction: column;
+}
 
+@keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+}
 
+.header {
+    position: absolute;
+    top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 1px 1px 5px #000;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    padding: 30px 20px;
+    border-radius: 30px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+h2 {
+    font-size: 20px;
+    min-height: 80px;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px #000;
+    overflow-wrap: break-word;
+    white-space: pre-wrap; /* مهم برای \n */
+}
+
+button {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.4s;
+    font-weight: bold;
+}
+
+#yesBtn {
+    background: linear-gradient(135deg, #00ff9d, #00cfff);
+    color: #000;
+    box-shadow: 0 5px 15px rgba(0,255,157,0.5);
+}
+
+#yesBtn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 25px rgba(0,255,157,0.7);
+}
+
+#noBtn {
+    background: linear-gradient(135deg, #ff0055, #ff3399);
+    color: #fff;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(255,0,85,0.5);
+}
+
+.progress {
+    height: 10px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00ff9d, #00cfff, #ffdd00);
+    transition: width 0.4s ease;
+    border-radius: 10px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 10px;
+    font-size: 12px;
+    opacity: 0.7;
+    text-shadow: 1px 1px 3px #000;
+}
+
+.heart, .emojiParticle {
+    position: absolute;
+    color: rgba(255,255,255,0.6);
+    animation: float 6s linear infinite;
+    pointer-events: none;
+    user-select: none;
+}
+
+@keyframes float {
+    0% {transform: translateY(100vh) rotate(0deg);}
+    100% {transform: translateY(-10vh) rotate(360deg);}
+}
+
+@media(max-width: 480px){
+    h2 { font-size: 18px; }
+    button { font-size: 16px; padding: 12px 24px; }
+}
+</style>
 </head>
+
 <body>
-<header>
-  <h1>مرتب خودرو</h1>
-  <div class="menu-toggle" id="menuToggle" aria-label="باز کردن منو" role="button" tabindex="0">
-    <span></span><span></span><span></span>
-  </div>
-</header>
 
-<nav id="sideMenu" aria-hidden="true">
-  <a href="index.html">ورود خودرو</a>
-  <a href="exit.html">خروج خودرو</a>
-  <a href="test_exit.html">خروج خودرو جهت آزمون</a>
-  <a href="test_entry.html">ورود خودرو پس از آزمون</a>
-  <a href="report.html">گزارش</a>
-</nav>
+<div class="header">
+💌 سرکار خانوم زهرا ممدی، این بازی مخصوص شماست ❤️
+</div>
 
-<main>
-  <h2>خدمات ورود خودرو</h2>
-  <form id="carEntryForm">
-    <label for="plate">شماره پلاک خودرو</label>
-    <input type="text" id="plate" name="plate" placeholder="مثال : 123الف12" required />
-
-    <label for="isCorporate" style="display: inline-flex; align-items: center; margin: -4px 0 15px 0; font-weight: 700; color: #4a58a7; cursor: pointer;">
-      <input type="checkbox" id="isCorporate" name="isCorporate" style="margin-left: 8px; width: 18px; height: 18px; cursor: pointer;" />
-      خودروی سازمانی
-    </label>
-
-    <div class="datetime-row">
-      <div>
-        <label for="date">تاریخ ورود</label>
-        <input type="text" id="date" name="date" placeholder="مثال : 1404/01/01" required />
-      </div>
-      <div>
-        <label for="time">ساعت ورود</label>
-        <input type="text" id="time" name="time" placeholder="مثال : 12:00 " required />
-      </div>
+<div class="container">
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <button type="submit">ثبت اطلاعات</button>
-  </form>
-</main>
+    <h2 id="question">آماده‌ای یه چالش خوشگل شروع کنیم؟ 😏</h2>
+
+    <div>
+        <button id="yesBtn">Yes 😍</button>
+        <button id="noBtn">No 😜</button>
+    </div>
+</div>
+
+<div class="footer">
+Designed with ❤️ by Mohamad
+</div>
 
 <script>
-  // منوی کناری
-  const menuToggle = document.getElementById('menuToggle');
-  const sideMenu = document.getElementById('sideMenu');
+let score = 0;
+let currentQuestion = 0;
 
-  function toggleMenu() {
-    const isOpen = sideMenu.classList.toggle('open');
-    sideMenu.setAttribute('aria-hidden', !isOpen);
-  }
+const questions = [
+"اگه بگم بیشتر از چیزی که فکر میکنی دوستت دارم باور میکنی؟ 😌",
+"حاضری یه مسافرت دونفره یواشکی بریم؟ ✈️",
+"فکر میکنی بهترین پارتنر دنیام؟ ❤️",
+"اگه ازت بخوام یه بوس ریز بدی الان میدی؟ 😁",
+"حاضری یه شب تا صبح فقط حرف بزنیم؟ 🌙",
+"اگه یه سورپرایز برات داشته باشم ذوق میکنی؟ 🎁",
+"میخوای همیشه کنار هم پیشرفت کنیم؟ 🚀",
+"اگه وسط روز یه ویس عاشقونه بفرستم گوش میدی کامل؟ 🎧",
+"حاضری با هم یه حرکت دیوونه‌بازی سالم انجام بدیم؟ 😎",
+"پایه‌ای یه رمز مخفی فقط بین خودمون داشته باشیم؟ 🔐",
+"اگه یه روز بگم دلم تنگ شده سریع میای پیشم؟ 😏",
+"قول میدی هیچوقت تنهام نذاری؟ 🤍"
+];
 
-  menuToggle.addEventListener('click', toggleMenu);
-  document.addEventListener('click', e => {
-    if (!sideMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-      sideMenu.classList.remove('open');
-      sideMenu.setAttribute('aria-hidden', 'true');
+const totalQuestions = questions.length;
+const pointsPerQuestion = 100 / totalQuestions;
+
+const questionElement = document.getElementById("question");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const progressBar = document.getElementById("progressBar");
+
+function typeText(element, text, callback){
+    element.innerText = "";
+    let i = 0;
+    let interval = setInterval(() => {
+        element.innerText += text.charAt(i);
+        i++;
+        if(i >= text.length){
+            clearInterval(interval);
+            if(callback) callback();
+        }
+    }, 30);
+}
+
+yesBtn.onclick = function() {
+    score += pointsPerQuestion;
+    currentQuestion++;
+
+    progressBar.style.width = ((currentQuestion / totalQuestions) * 100) + "%";
+
+    if(currentQuestion < totalQuestions){
+        typeText(questionElement, questions[currentQuestion]);
+        // وقتی نزدیک آخر سوال، دکمه Yes کمی bounce
+        if(currentQuestion === totalQuestions -1){
+            yesBtn.style.transform = "scale(1.2)";
+        }
+    } else {
+        showResult();
     }
-  });
+}
 
-  menuToggle.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleMenu();
+function showResult(){
+    typeText(questionElement, "امتیازت: 100 😍\nپس تو جوجوی خوشگل و ناز خودمی ❤️✨");
+
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
+
+    // particle انفجاری
+    for(let i=0;i<50;i++){
+        const p = document.createElement("div");
+        p.className = "emojiParticle";
+        const emojis = ["❤️","💖","💜","💛","💋","✨"];
+        p.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+        p.style.left = Math.random()*100+"vw";
+        p.style.fontSize = (Math.random()*25+15)+"px";
+        document.body.appendChild(p);
+        setTimeout(()=>p.remove(),5000);
     }
-  });
+}
 
-  // ثبت اطلاعات فرم
-  const form = document.getElementById('carEntryForm');
+function moveButton() {
+    const x = Math.floor(Math.random() * 180) - 90;
+    const y = Math.floor(Math.random() * 180) - 90;
+    noBtn.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random()*30-15}deg)`;
+}
 
-  form.addEventListener('submit', e => {
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", function(e){
     e.preventDefault();
+    moveButton();
+});
 
-    const plate = form.plate.value.trim();
-    const date = form.date.value.trim();
-    const time = form.time.value.trim();
-    const isCorporate = form.isCorporate.checked;
+// قلب‌ها و particle های رندوم
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    const emojis = ["❤️","💖","💜"];
+    heart.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    document.body.appendChild(heart);
 
-    let data = JSON.parse(localStorage.getItem('carManagementData')) || [];
+    setTimeout(() => heart.remove(), 6000);
+}, 500);
 
-    const newEntry = {
-      type: isCorporate ? 'ورود خودرو سازمانی' : 'ورود خودرو',
-      plate,
-      date,
-      time
-    };
-
-    data.push(newEntry);
-    localStorage.setItem('carManagementData', JSON.stringify(data));
-
-    alert('اطلاعات ثبت شد');
-    form.reset();
-  });
 </script>
+
 </body>
 </html>
